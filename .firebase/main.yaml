@@ -10,7 +10,7 @@ on:
 
 jobs:
   test:
-    name: Run Tests
+    name: Run Tests for deploy
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
