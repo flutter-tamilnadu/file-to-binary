@@ -136,6 +136,12 @@ class _FilePickerWithBinaryViewerState extends State<FilePickerWithBinaryViewer>
           bytesList[2] == 0x61 &&
           bytesList[3] == 0x43) {
         _convertedFileName = 'converted_file.flac';
+      } else if (bytesList.length >= 12 &&
+          bytesList[4] == 0x66 &&
+          bytesList[5] == 0x74 &&
+          bytesList[6] == 0x79 &&
+          bytesList[7] == 0x70) {
+        _convertedFileName = 'converted_file.m4a';
       } else if (bytesList.length >= 4 &&
           bytesList[0] == 0x4F &&
           bytesList[1] == 0x67 &&
