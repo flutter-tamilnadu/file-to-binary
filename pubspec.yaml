@@ -40,6 +40,7 @@ dependencies:
   universal_html: ^2.2.1
 
 dev_dependencies:
+  integration_test:
   flutter_test:
     sdk: flutter
 
