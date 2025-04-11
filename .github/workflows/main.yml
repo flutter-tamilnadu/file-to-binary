@@ -48,7 +48,7 @@ jobs:
           path: build/web
 
       - name: Setup Firebase CLI
-        uses: w9jds/firebase-action@v12
+        uses: w9jds/firebase-action@v11
         with:
           args: deploy --only hosting
         env:
