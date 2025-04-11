@@ -1,13 +1,12 @@
 name: filetobinary
 description: "File To Binary - Binary To File"
-# The following line prevents the package from being accidentally published to
-# pub.dev using `flutter pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: 'none'
 
 version: 1.0.0+1
 
 environment:
-  sdk: ^3.6.1
+  sdk: ">=3.6.1 <4.0.0"
+  flutter: ">=3.27.3"
 
 dependencies:
   flutter:
@@ -21,7 +20,6 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  integration_test:
   flutter_lints: ^5.0.0
 
 flutter:

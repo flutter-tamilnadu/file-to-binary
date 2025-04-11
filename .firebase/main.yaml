@@ -26,7 +26,7 @@ jobs:
           channel: 'stable'
           flutter-version: '3.27.3'
 
-      # Install dependencies
+      # Install dependencies - using flutter pub get instead of dart pub get
       - name: Install dependencies
         run: flutter pub get
 
