@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
-import 'file_picker_screen.dart';
+import 'base64_crafter_widget.dart';
 
 void main() {
 
   runApp(const MaterialApp(
-    home: FilePickerWithBinaryViewer(),
+    title: 'Base64 Encoder / Decoder',
+    home: FilePickerWithBase64Viewer(),
   ));
 }
