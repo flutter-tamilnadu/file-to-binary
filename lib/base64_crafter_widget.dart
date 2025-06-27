@@ -50,11 +50,9 @@ class _FilePickerWithBase64ViewerState extends State<FilePickerWithBase64Viewer>
         allowMultiple: false,
       );
 
-      if (result != null && result.files.single.bytes != null) {
-        final name = result.files.single.name;
-        final bytes = result.files.single.bytes!;
-        await _handleFileData(name, bytes);
-      }
+      convertBase64(result);
+      await compute(convertBase64, result);
+
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Error picking file: $e')),
@@ -63,6 +61,14 @@ class _FilePickerWithBase64ViewerState extends State<FilePickerWithBase64Viewer>
       setState(() {
         _isLoading = false;
       });
+    }
+  }
+
+  Future<void> convertBase64( FilePickerResult? result) async {
+    if (result != null && result.files.single.bytes != null) {
+      final name = result.files.single.name;
+      final bytes = result.files.single.bytes!;
+      await _handleFileData(name, bytes);
     }
   }
 
@@ -422,13 +428,23 @@ class _FilePickerWithBase64ViewerState extends State<FilePickerWithBase64Viewer>
                   children: [
                     Container(
                         color:
-                            _isHovering ? Colors.blue[50] : Colors.transparent,
+                            _isHovering ? Colors.blue[50] : Colors.white,
                         width: double.infinity,
                         child: DropzoneView(
+                          onHover: (){
+                            setState(() {
+                              _isHovering = true;
+                            });
+                          },
+                          onLeave: (){
+                            setState(() {
+                              _isHovering = false;
+                            });
+                          },
                           onCreated: (ctrl) => _dropController = ctrl,
                           onDropFile: (ev) async {
                             setState(() {
-                              _isHovering = true;
+                              _isHovering = false;
                               _convertedFileBytes = null;
                             });
 
@@ -444,9 +460,7 @@ class _FilePickerWithBase64ViewerState extends State<FilePickerWithBase64Viewer>
                                     content: Text('Error dropping file: $e')),
                               );
                             } finally {
-                              setState(() {
-                                _isHovering = false;
-                              });
+
                             }
                           },
                         )),
@@ -456,7 +470,7 @@ class _FilePickerWithBase64ViewerState extends State<FilePickerWithBase64Viewer>
                         width: double.infinity,
                         height: double.infinity,
                         decoration: BoxDecoration(
-                          color: Colors.white,
+                          color: Colors.transparent,
                           border: Border.all(color: Colors.white24),
                           borderRadius: BorderRadius.circular(4),
                         ),

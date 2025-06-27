@@ -1,6 +1,5 @@
 {
   "hosting": {
-    "site" : "base64crafter",
     "site" : "base64studio",
     "public": "build/web",
     "ignore": [
