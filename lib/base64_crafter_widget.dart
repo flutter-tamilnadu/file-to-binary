@@ -171,6 +171,12 @@ class _FilePickerWithBase64ViewerState extends State<FilePickerWithBase64Viewer>
           bytesList[2] == 0x46 &&
           bytesList[3] == 0x46) {
         _convertedFileName = 'converted_file.wav';
+      } else if (bytesList.length >= 12 &&
+          bytesList[4] == 0x66 &&
+          bytesList[5] == 0x74 &&
+          bytesList[6] == 0x79 &&
+          bytesList[7] == 0x70) {
+        _convertedFileName = 'converted_file.mp4';
       } else {
         _convertedFileName = 'converted_file.bin';
       }
