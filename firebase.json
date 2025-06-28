@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "site": "base64crafter",
+    "site": "hexcrafter",
     "public": "build/web",
     "ignore": [
       "firebase.json",

@@ -1,5 +1,5 @@
-name: filetobinary
-description: "File To Binary - Binary To File"
+name: hexcrafter
+description: "File To Hex - Hex To File"
 publish_to: 'none'
 
 version: 1.0.0+1

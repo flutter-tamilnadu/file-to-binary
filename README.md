@@ -1,13 +1,13 @@
-# FileToBinary
+# HexToFile
 
 A lightweight and intuitive Flutter web application that enables seamless conversion between files and their binary representations.
 
-🔗 **Live Application:** [filetobinary.web.app](https://filetobinary.web.app)  
+🔗 **Live Application:** [hexcrafter.web.app](https://hexcrafter.web.app)  
 📂 **Source Code:** [GitHub Repository](https://github.com/flutter-tamilnadu/file-to-binary)
 
 ## ✨ Overview
 
-**FileToBinary** is designed to provide developers and enthusiasts with a quick and efficient way to:
+**HexToFile** is designed to provide developers and enthusiasts with a quick and efficient way to:
 
 - Convert any file (e.g., image, audio, document) into binary format.
 - Reconstruct the original file from its binary representation.

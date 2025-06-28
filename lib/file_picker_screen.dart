@@ -34,7 +34,7 @@ class _FilePickerWithBinaryViewerState
   Uint8List? _convertedFileBytes;
   String _convertedFileName = 'converted_file';
   late DropzoneViewController _dropController;
-  String _selectedType = 'File To Binary';
+  String _selectedType = 'File To Hex';
   late final AnimationController _controller;
 
 
@@ -75,9 +75,7 @@ class _FilePickerWithBinaryViewerState
   }
 
   String _formatBinaryData(Uint8List bytes) {
-    return bytes
-        .map((byte) => '0x${byte.toRadixString(16).padLeft(2, '0').toUpperCase()}')
-        .join(', ');
+    return bytes.map((byte) => byte.toRadixString(16).padLeft(2, '0')).join(' ');
   }
 
   void _copyToClipboard() {
@@ -188,26 +186,27 @@ class _FilePickerWithBinaryViewerState
           bytesList[2] == 0x61 &&
           bytesList[3] == 0x43) {
         _convertedFileName = 'converted_file.flac';
-      } else if (bytesList.length >= 12 &&
-          bytesList[4] == 0x66 &&
-          bytesList[5] == 0x74 &&
-          bytesList[6] == 0x79 &&
-          bytesList[7] == 0x70) {
-        _convertedFileName = 'converted_file.m4a';
       } else if (bytesList.length >= 4 &&
           bytesList[0] == 0x4F &&
           bytesList[1] == 0x67 &&
           bytesList[2] == 0x67 &&
           bytesList[3] == 0x53) {
         _convertedFileName = 'converted_file.ogg';
-      } else if (bytesList.length >= 8 &&
+      } else if (bytesList.length >= 12 &&
           bytesList[4] == 0x66 &&
           bytesList[5] == 0x74 &&
           bytesList[6] == 0x79 &&
-          bytesList[7] == 0x70 &&
-          bytesList.sublist(8).toString().contains("mp42")) {
-        _convertedFileName = 'converted_file.mp4';
-      } else if (bytesList.length >= 4 &&
+          bytesList[7] == 0x70) {
+        final brand = String.fromCharCodes(bytesList.sublist(8, 12));
+        if (brand == 'mp42' || brand == 'isom' || brand == 'avc1') {
+          _convertedFileName = 'converted_file.mp4';
+        } else if (brand == 'M4A ') {
+          _convertedFileName = 'converted_file.m4a';
+        } else {
+          _convertedFileName = 'converted_file.mp4'; // default fallback to mp4
+        }
+      }
+      else if (bytesList.length >= 4 &&
           bytesList[0] == 0x00 &&
           bytesList[1] == 0x00 &&
           bytesList[2] == 0x01 &&
@@ -349,11 +348,11 @@ class _FilePickerWithBinaryViewerState
             children: [
               SizedBox(width: 110),
               Image.asset(
-                  height: 40,
-                  width: 40,
-                  'assets/binary_crafter_logo.png'),
+                  height: 46,
+                  width: 46,
+                  'assets/preview.png'),
               SizedBox(width: 20),
-              Text('Binary Crafter Online', style: GoogleFonts.arvo(
+              Text('Hex Crafter Online', style: GoogleFonts.arvo(
                 textStyle: Theme.of(context).textTheme.displayLarge,
                 fontSize: 30,
                 fontWeight: FontWeight.w700,
@@ -372,25 +371,25 @@ class _FilePickerWithBinaryViewerState
               thumbColor: CupertinoColors.white,
               groupValue: _selectedType,
               children: {
-                'File To Binary': Padding(
+                'File To Hex': Padding(
                   padding: const EdgeInsets.all(8),
                   child: Text(
-                    'File To Binary',
+                    'File To Hex',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: _selectedType == 'File To Binary'
+                      color: _selectedType == 'File To Hex'
                           ? Colors.black
                           : Colors.white,
                     ),
                   ),
                 ),
-                'Binary To File': Padding(
+                'Hex To File': Padding(
                   padding: const EdgeInsets.all(8),
                   child: Text(
-                    'Binary To File',
+                    'Hex To File',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: _selectedType == 'Binary To File'
+                      color: _selectedType == 'Hex To File'
                           ? Colors.black
                           : Colors.white,
                     ),
@@ -406,7 +405,7 @@ class _FilePickerWithBinaryViewerState
                   setState(() {
                     _selectedType = value;
                   });
-                  _selectedType == 'Binary To File' ? _controller.forward() : _controller.reverse();
+                  _selectedType == 'Hex To File' ? _controller.forward() : _controller.reverse();
                 }
               },
             ),
@@ -450,7 +449,7 @@ class _FilePickerWithBinaryViewerState
           children: [
             Spacer(),
             Text(
-              'Click here to convert binary into file',
+              'Click here to convert Hex into File',
               style: TextStyle(
                 color: Colors.black45
               ),
@@ -471,57 +470,73 @@ class _FilePickerWithBinaryViewerState
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.only(bottom: 50.0,left: 100),
-                child: Stack(
+                child:  Stack(
                   children: [
                     Container(
-                        color: _isHovering ? Colors.blue[50] : Colors.transparent,
+                        color:
+                        _isHovering ? Colors.blue[50] : Colors.white,
                         width: double.infinity,
                         child: DropzoneView(
+                          onHover: (){
+                            setState(() {
+                              _isHovering = true;
+                            });
+                          },
+                          onLeave: (){
+                            setState(() {
+                              _isHovering = false;
+                            });
+                          },
                           onCreated: (ctrl) => _dropController = ctrl,
                           onDropFile: (ev) async {
                             setState(() {
-                              _isHovering = true;
+                              _isHovering = false;
                               _convertedFileBytes = null;
                             });
 
                             try {
-                              final name = await _dropController.getFilename(ev);
-                              final bytes = await _dropController.getFileData(ev);
+                              final name =
+                              await _dropController.getFilename(ev);
+                              final bytes =
+                              await _dropController.getFileData(ev);
                               await _handleFileData(name, bytes);
                             } catch (e) {
                               ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(content: Text('Error dropping file: $e')),
+                                SnackBar(
+                                    content: Text('Error dropping file: $e')),
                               );
                             } finally {
-                              setState(() {
-                                _isHovering = false;
-                              });
+
                             }
                           },
-                        )
-                    ),
+                        )),
                     InkWell(
                       onTap: _pickFile,
                       child: Container(
                         width: double.infinity,
                         height: double.infinity,
                         decoration: BoxDecoration(
-                          color: Colors.white,
+                          color: Colors.transparent,
                           border: Border.all(color: Colors.white24),
                           borderRadius: BorderRadius.circular(4),
                         ),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.file_upload_outlined,size: 100,color: Colors.black45,),
-                            SizedBox(height: 20,),
-                            const Text('Choose a file or drag it here',style: TextStyle(fontWeight: FontWeight.bold),),
+                            Icon(Icons.file_upload_outlined,
+                                size: 100, color: Colors.black45),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            const Text('Choose a file or drag it here',
+                                style: TextStyle(fontWeight: FontWeight.bold)),
                             const SizedBox(height: 20),
                             if (_fileName != null)
                               Text(
                                 'File: $_fileName',
-                                style:GoogleFonts.arvo(
-                                  textStyle: Theme.of(context).textTheme.displayLarge,
+                                style: GoogleFonts.arvo(
+                                  textStyle:
+                                  Theme.of(context).textTheme.displayLarge,
                                   fontSize: 20,
                                   fontStyle: FontStyle.italic,
                                 ),
@@ -619,7 +634,7 @@ class _FilePickerWithBinaryViewerState
                         contentPadding: EdgeInsets.all(12),
                         border: InputBorder.none,
                         labelText: 'Paste hexadecimal binary data',
-                        hintText: 'Example: 89 50 4E 47 0D 0A 1A 0A (PNG header)',
+                        hintText: 'Example: 89 50 4E 47 0D 0A 1A 0A',
                       ),
                       style: const TextStyle(fontFamily: 'monospace', fontSize: 14),
                     ),
