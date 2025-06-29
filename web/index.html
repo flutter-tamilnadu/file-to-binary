@@ -2,81 +2,111 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>About | Hex Crafter</title>
-    <meta name="description" content="Learn about Hex Crafter - a powerful online hex encode and decode tool for files and text.">
-    <link rel="stylesheet" href="/styles.css">
+    <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- ====================== TITLE & SEO ====================== -->
+    <title>Base64Crafter | Free Online Hex Encoder & Decoder</title>
+    <meta name="description" content="Free online Hex converter for encoding files to Hex and decoding Hex to files. Supports images, documents, text, and more.">
+    <meta name="keywords" content="base64crafter, hex converter, file to hex, hex to file, hex encode decode, image to hex, hex tool, online hex, hex web app">
+    <meta name="author" content="Anandh Krishnan">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#007acc">
+
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- ====================== CANONICAL URL ====================== -->
+    <link rel="canonical" href="https://hexcrafter.web.app/">
+
+    <!-- ====================== OPEN GRAPH / SOCIAL ====================== -->
+    <meta property="og:title" content="Base64Crafter | Free Online Hex Encoder & Decoder">
+    <meta property="og:description" content="Encode and decode Hex with Base64Crafter. Convert files to Hex or download from Hex securely. Works offline!">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://hexcrafter.web.app/">
+    <meta property="og:site_name" content="Base64Crafter">
+    <meta property="og:image" content="https://hexcrafter.web.app/assets/preview.png">
+
+    <!-- ====================== TWITTER CARD ====================== -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Base64Crafter | Free Online Hex Encoder & Decoder">
+    <meta name="twitter:description" content="The fastest Hex encoder/decoder for files. Secure, private, and works offline.">
+    <meta name="twitter:image" content="https://hexcrafter.web.app/assets/preview.png">
+    <meta name="twitter:site" content="@hexcrafter">
+
+    <!-- ====================== APP CONFIG ====================== -->
+    <meta name="application-name" content="Base64Crafter">
+    <meta name="apple-mobile-web-app-title" content="Base64Crafter">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <!-- ====================== FLUTTER BASE HREF ====================== -->
+    <base href="$FLUTTER_BASE_HREF">
+
+    <!-- ====================== FAVICON & APP ICONS ====================== -->
+    <link rel="apple-touch-icon" href="icons/icon-192.png">
     <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="manifest" href="manifest.json">
+
+    <!-- ====================== STRUCTURED DATA (SCHEMA.ORG) ====================== -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            "name": "Base64Crafter",
+            "url": "https://hexcrafter.web.app/",
+            "description": "Free online tool to convert files to Hex and decode Hex back to files.",
+            "applicationCategory": "DeveloperTool",
+            "operatingSystem": "Web",
+            "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "USD"
+            },
+            "creator": {
+                "@type": "Person",
+                "name": "Anandh Krishnan",
+                "url": "https://www.linkedin.com/in/anandhps/"
+            }
+        }
+    </script>
+
+    <!-- ====================== HIDDEN TEXT FOR SEO (CRAWLABLE) ====================== -->
     <style>
-        body {
-          font-family: Arial, sans-serif;
-          line-height: 1.6;
-          padding: 2rem;
-          max-width: 800px;
-          margin: auto;
-          background-color: #f9f9f9;
-          color: #333;
-        }
-
-        h1, h2 {
-          color: #007acc;
-        }
-
-        a {
-          color: #007acc;
-          text-decoration: none;
-        }
-
-        a:hover {
-          text-decoration: underline;
-        }
-
-        .profile-links {
-          margin-top: 2rem;
-        }
-
-        .profile-links a {
-          display: inline-block;
-          margin-right: 1.5rem;
-        }
-
-        .features, .contact {
-          margin-top: 1.5rem;
-        }
-
-        ul {
-          padding-left: 1.5rem;
+        .seo-text {
+            position: absolute;
+            left: -9999px;
+            top: auto;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
         }
     </style>
 </head>
 <body>
-
-<h1>About Hex Crafter</h1>
-
-<p><strong>Hex Crafter</strong> is a fast and user-friendly online utility built for developers and tech enthusiasts to convert files and text into hexadecimal format, and decode hex back to original files or content.</p>
-
-<div class="features">
+<!-- Hidden SEO text (crawlable by Google but invisible to users) -->
+<div class="seo-text">
+    <h1>Base64Crafter</h1>
+    <p>Free online Hex encoder and decoder. Convert files to Hex strings or decode Hex to download files. Supports all types of files. Works offline - no data leaves your browser.</p>
+    <h2>Features</h2>
     <ul>
-        <li>Convert <strong>files to hexadecimal strings</strong> for inspection, debugging, or transmission.</li>
-        <li>Decode <strong>hex strings back to files</strong> with full accuracy and security.</li>
-        <li>Supports common file types including images, executables, text, and more.</li>
-        <li>Simple, minimalistic interface for a smooth conversion experience.</li>
-        <li>100% browser-based — your data never leaves your device.</li>
+        <li>Encode files to Hex</li>
+        <li>Decode Hex to files</li>
+        <li>100% client-side (no server upload)</li>
+        <li>Fast and privacy-focused</li>
     </ul>
 </div>
 
-<div class="contact">
-    <h2>Contact & Feedback</h2>
-    <p>If you notice any issues or have suggestions for improving Hex Crafter, I’d love to hear from you. Your feedback helps improve the tool for everyone.</p>
-    <p><strong>Reach me on:</strong> <a href="https://www.linkedin.com/in/anandhps/" target="_blank">LinkedIn Profile</a></p>
-</div>
+<!-- Flutter App Entry Point -->
+<script src="flutter_bootstrap.js" async></script>
 
-<div class="profile-links">
-    <h2>About the Creator</h2>
-    <p>This tool is built and maintained by <strong>Anandh Krishnan</strong>. I enjoy building simple tools that make everyday development tasks easier.</p>
-    <a href="https://stackoverflow.com/users/5197712/anandh-krishnan" target="_blank">Stack Overflow</a>
-    <a href="https://www.linkedin.com/in/anandhps/" target="_blank">LinkedIn</a>
-</div>
-
+<!-- Fallback for non-JS users -->
+<noscript>
+    <h1>Base64Crafter</h1>
+    <p>Please enable JavaScript to use this application.</p>
+</noscript>
 </body>
 </html>
